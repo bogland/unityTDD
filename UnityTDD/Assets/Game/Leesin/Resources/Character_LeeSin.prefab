@@ -2196,6 +2196,7 @@ GameObject:
   - component: {fileID: 2275642896381138209}
   - component: {fileID: 5765149351926249159}
   - component: {fileID: 1511722499674374937}
+  - component: {fileID: 6141888649594558309}
   m_Layer: 0
   m_Name: Character_LeeSin
   m_TagString: Untagged
@@ -2265,6 +2266,20 @@ CapsuleCollider:
   m_Height: 1.8527603
   m_Direction: 1
   m_Center: {x: 0, y: 0.87056065, z: -0.087002724}
+--- !u!114 &6141888649594558309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8477086529689180084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4be304f5f1eade4899b5ca4015832ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabSonicWave: {fileID: -5052385532723716726, guid: dd48d64b548126044bfacff1546c0105, type: 3}
+  speed: 10
 --- !u!1 &8524385656117261236
 GameObject:
   m_ObjectHideFlags: 0

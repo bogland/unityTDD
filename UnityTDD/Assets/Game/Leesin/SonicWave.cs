@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SonicWave : MonoBehaviour
 {
+    public UnityEvent OnHitEnemy = new UnityEvent();
     Vector3 posStart;
     Vector3 posDestination;
     Rigidbody rigidbody;
     float range;
+
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -48,6 +51,7 @@ public class SonicWave : MonoBehaviour
         {
             Debug.Log("캐릭터에 맞음");
             GameObject.Destroy(gameObject);
+            OnHitEnemy.Invoke();
         }
 
     }
