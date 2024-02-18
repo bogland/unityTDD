@@ -13,8 +13,8 @@ public class NewTestScript
     {
         Character character = new Character();
         var characterLeesin = Resources.Load<GameObject>("Character_LeeSin");
-        var myLeeSin = character.Spawn(UnitType.Me, characterLeesin);
-        var enemyLeeSin = character.Spawn(UnitType.Enemy, characterLeesin, new Vector3(0, 0, 5));
+        var myLeeSin = character.Spawn(eUnitType.Me, characterLeesin);
+        var enemyLeeSin = character.Spawn(eUnitType.Enemy, characterLeesin, new Vector3(0, 0, 5));
 
         var skillLeeSin = myLeeSin.GetComponent<Skill_Leesin>();
         skillLeeSin.CastSonicWave(myLeeSin.transform.position, enemyLeeSin.transform.position);
@@ -35,8 +35,8 @@ public class NewTestScript
     {
         Character character = new Character();
         var characterLeesin = Resources.Load<GameObject>("Character_LeeSin");
-        var myLeeSin = character.Spawn(UnitType.Me, characterLeesin);
-        var enemyLeeSin = character.Spawn(UnitType.Enemy, characterLeesin, new Vector3(0, 0, 5));
+        var myLeeSin = character.Spawn(eUnitType.Me, characterLeesin);
+        var enemyLeeSin = character.Spawn(eUnitType.Enemy, characterLeesin, new Vector3(0, 0, 5));
 
         var skillLeeSin = myLeeSin.GetComponent<Skill_Leesin>();
         skillLeeSin.CastSonicWave(myLeeSin.transform.position, new Vector3(-5,0,0));
