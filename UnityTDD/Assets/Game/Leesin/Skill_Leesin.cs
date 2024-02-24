@@ -62,11 +62,11 @@ public class Skill_Leesin : MonoBehaviour
         var tempest = objectTempest.GetComponent<Tempest>();
 
         var idCharacters = characterManager.FindCharactersInArea(posStart,range);
-        if(idCharacters?.Length != 0)
-        {
-            Debug.Log(JsonConvert.SerializeObject(idCharacters));
-            OnHitEnemyTempest.Invoke(idCharacters);
-        }
+        //if(idCharacters?.Length != 0)
+        //{
+        //    Debug.Log(JsonConvert.SerializeObject(idCharacters));
+        //    OnHitEnemyTempest.Invoke(idCharacters);
+        //}
 
         //- 패시브버프
         //- 피격시 절대시야

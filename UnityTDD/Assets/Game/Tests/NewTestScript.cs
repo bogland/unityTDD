@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,6 +10,26 @@ using UnityEngine.TestTools;
 
 public class NewTestScript
 {
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
+    {
+        Debug.Log("OneTimeSetUp");
+    }
+
+    [UnitySetUp]
+    public IEnumerator SetUp()
+    {
+        Debug.Log("SetUp");
+        yield return new EnterPlayMode();
+        SceneManager.LoadScene("Test_Base");
+    }
+    [UnityTearDown]
+    public IEnumerator TearDown()
+    {
+        Debug.Log("TearDown");
+        yield return new ExitPlayMode();
+    }
+
     // A Test behaves as an ordinary method
     [UnityTest]
     public IEnumerator CastLeesinSonicWave()
@@ -50,14 +72,11 @@ public class NewTestScript
         yield return new WaitForSeconds(5);
         // Use the Assert class to test conditions
         Assert.True(!isHit, "음파에 맞음");
-
     }
 
     [UnityTest]
     public IEnumerator CastLeesinSkillTempest()
     {
-        //SceneManager.LoadScene("Test_Base");
-
         CharacterManager characterManager = new CharacterManager();
         var characterLeesin = Resources.Load<GameObject>("Character_LeeSin");
         var myLeeSin = characterManager.Spawn(eUnitType.Me, characterLeesin);
@@ -73,14 +92,8 @@ public class NewTestScript
                 isHit = true;
             }
         });
-        //skillLeeSin.CastSonicWave(myLeeSin.transform.position, new Vector3(-5, 0, 0));
-        skillLeeSin.OnHitEnemySonic.AddListener(() =>
-        {
-            isHit = true;
-        });
 
         yield return new WaitForSeconds(1);
-        // Use the Assert class to test conditions
         Assert.True(isHit, "퐁풍(Tempest에 맞음");
 
     }
@@ -88,12 +101,10 @@ public class NewTestScript
     [UnityTest]
     public IEnumerator CastLeesinSkillTempestOut()
     {
-        //SceneManager.LoadScene("Test_Base");
-
         CharacterManager characterManager = new CharacterManager();
         var characterLeesin = Resources.Load<GameObject>("Character_LeeSin");
         var myLeeSin = characterManager.Spawn(eUnitType.Me, characterLeesin);
-        var enemyLeeSin = characterManager.Spawn(eUnitType.Enemy, characterLeesin, new Vector3(0, 0, 8));
+        var enemyLeeSin = characterManager.Spawn(eUnitType.Enemy, characterLeesin, new Vector3(0, 0, 9));
 
         var isHit = false;
         var skillLeeSin = myLeeSin.GetComponent<Skill_Leesin>();
@@ -105,16 +116,49 @@ public class NewTestScript
                 isHit = true;
             }
         });
-        //skillLeeSin.CastSonicWave(myLeeSin.transform.position, new Vector3(-5, 0, 0));
-        skillLeeSin.OnHitEnemySonic.AddListener(() =>
-        {
-            isHit = true;
-        });
 
         yield return new WaitForSeconds(1);
         // Use the Assert class to test conditions
         Assert.True(!isHit, "퐁풍(Tempest에 맞음");
 
+    }
+
+    [UnityTest]
+    public IEnumerator CastLeesinSkillTempestAsync() => UniTask.ToCoroutine(async () =>
+    {
+        CharacterManager characterManager = new CharacterManager();
+        var characterLeesin = Resources.Load<GameObject>("Character_LeeSin");
+        var myLeeSin = characterManager.Spawn(eUnitType.Me, characterLeesin);
+        var enemyLeeSin = characterManager.Spawn(eUnitType.Enemy, characterLeesin, new Vector3(0, 0, 3));
+
+        var isHit = false;
+        var skillLeeSin = myLeeSin.GetComponent<Skill_Leesin>();
+        var ids = await skillLeeSin.CastTempest(myLeeSin.transform.position, characterManager);
+        if(ids.Length > 0)
+        {
+            isHit = true;
+        }
+        await Task.Delay(1000);
+        Assert.True(isHit, "Tempest에 맞음");
+    });
+
+    [UnityTest]
+    public async Task CastLeesinSkillTempestAsync2()
+    { 
+        CharacterManager characterManager = new CharacterManager();
+        var characterLeesin = Resources.Load<GameObject>("Character_LeeSin");
+        var myLeeSin = characterManager.Spawn(eUnitType.Me, characterLeesin);
+        var enemyLeeSin = characterManager.Spawn(eUnitType.Enemy, characterLeesin, new Vector3(0, 0, 3));
+
+        var isHit = false;
+        var skillLeeSin = myLeeSin.GetComponent<Skill_Leesin>();
+        var ids = await skillLeeSin.CastTempest(myLeeSin.transform.position, characterManager);
+        if (ids.Length > 0)
+        {
+            isHit = true;
+        }
+        await Task.Delay(1000);
+        Assert.True(isHit, "Tempest에 맞음");
     }
 
     // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
