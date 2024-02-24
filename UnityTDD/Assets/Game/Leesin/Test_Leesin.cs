@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class Test_Leesin : MonoBehaviour
 {
-    Character character = new Character();
+    CharacterManager characterManager = new CharacterManager();
     // Start is called before the first frame update
     void Start()
     {
         var characterLeesin = Resources.Load<GameObject>("Character_LeeSin");
-        var myLeeSin = character.Spawn(eUnitType.Me, characterLeesin);
-        var enemyLeeSin = character.Spawn(eUnitType.Enemy, characterLeesin,new Vector3(0,0,5));
+        var myLeeSin = characterManager.Spawn(eUnitType.Me, characterLeesin);
+        var enemyLeeSin = characterManager.Spawn(eUnitType.Enemy, characterLeesin,new Vector3(0,0,3));
 
         var skillLeeSin = myLeeSin.GetComponent<Skill_Leesin>();
-        skillLeeSin.CastSonicWave(myLeeSin.transform.position, enemyLeeSin.transform.position);
+        //skillLeeSin.CastSonicWave(myLeeSin.transform.position, enemyLeeSin.transform.position);
+
+
+        skillLeeSin.CastTempest(myLeeSin.transform.position,characterManager);
     }
 
     // Update is called once per frame
@@ -21,4 +24,6 @@ public class Test_Leesin : MonoBehaviour
     {
         
     }
+
 }
+

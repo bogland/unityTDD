@@ -2279,7 +2279,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabSonicWave: {fileID: -5052385532723716726, guid: dd48d64b548126044bfacff1546c0105, type: 3}
+  prefabTempest: {fileID: -4607793017821426878, guid: ba65ad1110aa69c46861b9a7c046216a, type: 3}
   speed: 10
+  OnHitEnemy:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8524385656117261236
 GameObject:
   m_ObjectHideFlags: 0
